@@ -1,6 +1,6 @@
 import { Button, Form, message} from 'antd'
 import Input from 'antd/lib/input/Input'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../resources/authentication.css'
 import axios from 'axios'
@@ -22,6 +22,12 @@ function Login(){
             message.error('Login Failed.')
         }
     }
+
+    useEffect(()=>{
+        if(localStorage.getItem('accomplishment-tracker-user')){
+            navigate('/')
+        }
+    },[])
 
     return (
         <div className='register'>
