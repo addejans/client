@@ -1,23 +1,28 @@
 import { Button, Form, message } from 'antd'
 import Input from 'antd/lib/input/Input'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../resources/authentication.css'
 import axios from 'axios'
+import Spinner from '../components/Spinner'
 
 function Register(){
-
+    const [loading, setLoading] = useState(false)
     const onFinish=async(values)=>{
         try{
+            setLoading(true)
             await axios.post('/api/users/register', values)
             message.success('Registration Successful')
+            setLoading(false)
         } catch (error){
             message.error('Something went wrong with registration.')
+            setLoading(false)
         }
     }
 
     return (
         <div className='register'>
+            {loading && <Spinner />}
             <div className="row justify-content-center align-items-center w-100 h-100">
                 <div className="col-md-5">
                     <div className="lottie">
